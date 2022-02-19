@@ -20,7 +20,7 @@ public class CalculatorContoller {
     }
 
     @GetMapping(path = "/calculator/plus")
-    public static String plus(@RequestParam String num1, @RequestParam String num2){
+    public static String plus(@RequestParam int num1, @RequestParam int num2){
         return CalculatorServiseImp.plus(num1,num2);
     }
     @GetMapping(path = "/calculator/minus")
