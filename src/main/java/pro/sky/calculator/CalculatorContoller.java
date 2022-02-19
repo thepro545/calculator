@@ -4,8 +4,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 public class CalculatorContoller {
     private final CalculatorServise calculatorServise;
@@ -20,7 +18,7 @@ public class CalculatorContoller {
     }
 
     @GetMapping(path = "/calculator/plus")
-    public static String plus(@RequestParam int num1, @RequestParam int num2){
+    public String plus(@RequestParam int num1, @RequestParam int num2){
         return CalculatorServiseImp.plus(num1,num2);
     }
     @GetMapping(path = "/calculator/minus")
