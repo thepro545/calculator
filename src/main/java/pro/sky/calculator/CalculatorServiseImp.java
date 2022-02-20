@@ -13,25 +13,19 @@ public class CalculatorServiseImp implements CalculatorServise {
         return "Добро пожаловать в калькулятор";
     }
 
-    public static String plus(int num1, int num2) {
-        return num1 + " + " + num2 + " = " + (num1 + num2);
+    public int plus(int num1, int num2) {
+        return num1 + num2;
     }
 
-    public static String minus(int num1, int num2) {
-        return num1 + " - " + num2 + " = " + (num1 - num2);
+    public int minus(int num1, int num2) {
+        return num1 - num2;
     }
 
-    public static String multiply(int num1, int num2) {
-        return num1 + " * " + num2 + " = " + (num1 * num2);
+    public int multiply(int num1, int num2) {
+        return num1 * num2;
     }
 
-    public static String divide(int num1, int num2) {
-        String result = "";
-        if (num2 == 0) {
-            return "Ошибка. На 0 делить нельзя.";
-        } else {
-            result = num1 + " / " + num2 + " = " + (num1 / num2);
-        }
-        return result;
+    public int divide(int num1, int num2) {
+            return num1 / num2;
     }
 }

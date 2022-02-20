@@ -19,18 +19,22 @@ public class CalculatorContoller {
 
     @GetMapping(path = "/calculator/plus")
     public String plus(@RequestParam("num1") int num1, @RequestParam("num2") int num2){
-        return CalculatorServiseImp.plus(num1,num2);
+        return num1 + " + " + num2 + "=" + calculatorServise.plus(num1,num2);
     }
     @GetMapping(path = "/calculator/minus")
     public String minus(@RequestParam("num1") int num1, @RequestParam("num2") int num2){
-        return CalculatorServiseImp.minus(num1,num2);
+        return num1 + " - " + num2 + "=" + calculatorServise.minus(num1,num2);
     }
     @GetMapping(path = "/calculator/multiply")
     public String multiply(@RequestParam("num1") int num1, @RequestParam("num2") int num2){
-        return CalculatorServiseImp.multiply(num1,num2);
+        return num1 + " * " + num2 + "=" + calculatorServise.multiply(num1,num2);
     }
     @GetMapping(path = "/calculator/divide")
     public String divide(@RequestParam("num1") int num1, @RequestParam("num2") int num2){
-        return CalculatorServiseImp.divide(num1,num2);
+        if (num2 == 0) {
+            return "Ошибка. На 0 делить нельзя.";
+        } else {
+            return num1 + " / " + num2 + " = " + calculatorServise.divide(num1,num2);
+        }
     }
 }
