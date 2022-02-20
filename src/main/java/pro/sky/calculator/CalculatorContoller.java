@@ -13,8 +13,8 @@ public class CalculatorContoller {
     }
 
     @GetMapping(path = "/calculator")
-    public String hello(){
-        return calculatorServise.hello();
+    public String hello() {
+        return "Добро пожаловать в калькулятор";
     }
 
     @GetMapping(path = "/calculator/plus")

@@ -9,10 +9,6 @@ import java.util.Optional;
 @Service
 public class CalculatorServiseImp implements CalculatorServise {
 
-    public String hello() {
-        return "Добро пожаловать в калькулятор";
-    }
-
     public int plus(int num1, int num2) {
         return num1 + num2;
     }
