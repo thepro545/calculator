@@ -13,19 +13,19 @@ public class CalculatorServiseImp implements CalculatorServise {
         return "Добро пожаловать в калькулятор";
     }
 
-    public static String plus(@RequestParam int num1, @RequestParam int num2) {
+    public static String plus(int num1, int num2) {
         return num1 + " + " + num2 + " = " + (num1 + num2);
     }
 
-    public static String minus(@RequestParam("num1") int num1, @RequestParam("num2") int num2) {
+    public static String minus(int num1, int num2) {
         return num1 + " - " + num2 + " = " + (num1 - num2);
     }
 
-    public static String multiply(@RequestParam("num1") int num1, @RequestParam("num2") int num2) {
+    public static String multiply(int num1, int num2) {
         return num1 + " * " + num2 + " = " + (num1 * num2);
     }
 
-    public static String divide(@RequestParam("num1") int num1, @RequestParam("num2") int num2) {
+    public static String divide(int num1, int num2) {
         String result = "";
         if (num2 == 0) {
             return "Ошибка. На 0 делить нельзя.";
