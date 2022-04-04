@@ -1,6 +1,6 @@
-package pro.sky.calculator;
+package pro.sky.calculator.Service;
 
-public interface CalculatorServise {
+public interface CalculatorService {
     int plus(int num1, int num2);
     int minus(int num1, int num2);
     int multiply(int num1, int num2);

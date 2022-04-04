@@ -1,13 +1,11 @@
-package pro.sky.calculator;
+package pro.sky.calculator.Service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Optional;
+import pro.sky.calculator.Exceptions.ZeroDivideException;
+import pro.sky.calculator.Service.CalculatorService;
 
 @Service
-public class CalculatorServiseImp implements CalculatorServise {
+public class CalculatorServiceImp implements CalculatorService {
 
     public int plus(int num1, int num2) {
         return num1 + num2;
@@ -22,6 +20,9 @@ public class CalculatorServiseImp implements CalculatorServise {
     }
 
     public int divide(int num1, int num2) {
-            return num1 / num2;
+        if (num2 == 0) {
+            throw new ZeroDivideException();
+        }
+        return num1 / num2;
     }
 }
