@@ -1,4 +1,4 @@
-package pro.sky.calculator;
+package pro.sky.calculator.Service;
 
 public interface CalculatorService {
     int plus(int num1, int num2);
