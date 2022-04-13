@@ -5,7 +5,7 @@ import pro.sky.calculator.Exceptions.NotFoundException;
 import java.util.Arrays;
 
 public class StringListImp implements StringList {
-    private String[] array = new String[10];
+    private String[] array = new String[5];
     private int size = 0;
 
     @Override
