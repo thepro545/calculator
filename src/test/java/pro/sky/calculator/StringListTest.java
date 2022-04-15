@@ -18,7 +18,7 @@ public class StringListTest {
 
     @MethodSource("provideArgumentsForStringListTest")
     @ParameterizedTest
-    public void testAdd(String item) {
+    public void testAdd(Integer item) {
         assertEquals(item, stringList.add(item));
         assertTrue(stringList.contains(item));
     }
@@ -33,8 +33,8 @@ public class StringListTest {
     @Test
     public void testSet() {
         setList();
-        stringList.set(0, "Not Phone :D");
-        assertTrue(stringList.contains("Not Phone :D"));
+        stringList.set(0, 123456);
+        assertTrue(stringList.contains(123456));
     }
 
     @Test
@@ -70,9 +70,9 @@ public class StringListTest {
 
     @MethodSource("provideArgumentsForStringListTest")
     @ParameterizedTest
-    public void testToArray(String item, int index) {
+    public void testToArray(Integer item, int index) {
         setList();
-        String[] array = stringList.toArray();
+        Integer[] array = stringList.toArray();
         assertEquals(array[index], stringList.get(index));
     }
 

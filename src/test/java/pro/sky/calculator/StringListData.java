@@ -1,10 +1,10 @@
 package pro.sky.calculator;
 
 public class StringListData {
-    public static final String ZERO = "Apple";
-    public static final String ONE = "Android";
-    public static final String TWO = "Orange";
-    public static final String THREE = "IceCream";
-    public static final String FOUR = "Tea";
+    public static final Integer ZERO = 0;
+    public static final Integer ONE = 1;
+    public static final Integer TWO = 2;
+    public static final Integer THREE = 3;
+    public static final Integer FOUR = 4;
 
 }
