@@ -61,7 +61,7 @@ public class StringListImp implements StringList {
     @Override
     public boolean contains(Integer item) {
         checkItems(item);
-        sortInsertion(array);
+        sortInsertion();
         return findBin(item);
     }
 
@@ -134,18 +134,18 @@ public class StringListImp implements StringList {
     }
 
 
-    public void sortInsertion(Integer[] arr) {
+    public void sortInsertion() {
 
-        for (int i = 1; i < arr.length; i++) {
-//            if( arr[i] != null) {
-            int temp = arr[i];
-            int j = i;
-            while (j > 0 && arr[j - 1] >= temp) {
-                arr[j] = arr[j - 1];
-                j--;
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] != null) {
+                int temp = array[i];
+                int j = i;
+                while (j > 0 && array[j - 1] >= temp) {
+                    array[j] = array[j - 1];
+                    j--;
+                }
+                array[j] = temp;
             }
-            arr[j] = temp;
-//            }
         }
     }
 
@@ -157,11 +157,11 @@ public class StringListImp implements StringList {
         while (min <= max) {
             int mid = (min + max) / 2;
 
-            if (item.equals(array[mid])) {
+            if (array[mid] != null && item.equals(array[mid])) {
                 return true;
             }
 
-            if (item < array[mid]) {
+            if (array[mid] != null && item < array[mid]) {
                 max = mid - 1;
             } else {
                 min = mid + 1;
