@@ -161,7 +161,7 @@ public class StringListImp implements StringList {
                 return true;
             }
 
-            if (array[mid] != null && item < array[mid]) {
+            if (array[mid] == null || item < array[mid]) {
                 max = mid - 1;
             } else {
                 min = mid + 1;
