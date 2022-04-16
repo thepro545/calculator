@@ -5,11 +5,11 @@ import pro.sky.calculator.Exceptions.NotFoundException;
 import java.util.Arrays;
 
 public class StringListImp implements StringList {
-    private String[] array = new String[5];
+    private Integer[] array = new Integer[5];
     private int size = 0;
 
     @Override
-    public String add(String item) {
+    public Integer add(Integer item) {
         checkItems(item);
         array[size] = item;
         size++;
@@ -18,16 +18,17 @@ public class StringListImp implements StringList {
     }
 
     @Override
-    public String add(int index, String item) {
+    public Integer add(int index, Integer item) {
         checkItems(item);
         checkIndex(index);
+//        System.arraycopy(array, index, size, index+1, size - index);
         add(item);
         array[index] = item;
         return item;
     }
 
     @Override
-    public String set(int index, String item) {
+    public Integer set(int index, Integer item) {
         checkItems(item);
         checkIndexMax(index);
         array[index] = item;
@@ -35,18 +36,11 @@ public class StringListImp implements StringList {
     }
 
     @Override
-    public String remove(String item) {
+    public Integer remove(Integer item) {
         checkItems(item);
-        int solve = -1;
-        for (int i = 0; i < size; i++) {
-            if (item.equals(array[i])) {
-                solve = i;
-                break;
-            }
-        }
-
-        if (solve != -1) {
-            remove(solve);
+        Integer indexCheck = indexOf(item);
+        if (indexCheck != -1) {
+            removeIndex(indexCheck);
         } else {
             throw new NotFoundException("Not Found");
         }
@@ -55,8 +49,8 @@ public class StringListImp implements StringList {
     }
 
     @Override
-    public String remove(int index) {
-        String element = checkIndex(index);
+    public Integer removeIndex(int index) {
+        int element = checkIndex(index);
         for (int i = index; i < size - 1; i++) {
             array[i] = array[i + 1];
         }
@@ -65,20 +59,15 @@ public class StringListImp implements StringList {
     }
 
     @Override
-    public boolean contains(String item) {
+    public boolean contains(Integer item) {
         checkItems(item);
-        boolean equal = false;
-        for (int i = 0; i < size; i++) {
-            if (item.equals(array[i])) {
-                equal = true;
-                break;
-            }
-        }
-        return equal;
+        sortInsertion();
+        return findBin(item);
     }
 
     @Override
-    public int indexOf(String item) {
+    public Integer indexOf(Integer item) {
+        checkItems(item);
         for (int i = 0; i < size; i++) {
             if (item.equals(array[i])) {
                 return i;
@@ -88,9 +77,10 @@ public class StringListImp implements StringList {
     }
 
     @Override
-    public int lastIndexOf(String item) {
+    public Integer lastIndexOf(Integer item) {
+        checkItems(item);
         for (int i = size - 1; i >= 0; i--) {
-            if (item.equals(array[i])) {
+            if (item == array[i]) {
                 return i;
             }
         }
@@ -98,7 +88,7 @@ public class StringListImp implements StringList {
     }
 
     @Override
-    public String get(int index) {
+    public Integer get(int index) {
         checkIndex(index);
         return array[index];
     }
@@ -108,18 +98,7 @@ public class StringListImp implements StringList {
         if (otherList == null) {
             return false;
         }
-        boolean result = true;
-        if (this.size != otherList.size()) {
-            result = false;
-        } else {
-            for (int i = 0; i < this.size; i++) {
-                if(!this.get(i).equals(otherList.get(i))){
-                    result = false;
-                    break;
-                }
-            }
-        }
-        return result;
+        return Arrays.equals(toArray(), otherList.toArray());
     }
 
     @Override
@@ -129,48 +108,78 @@ public class StringListImp implements StringList {
 
     @Override
     public boolean isEmpty() {
-        boolean result = true;
-        for (String check: array) {
-            if(check != null) {
-                result = false;
-                break;
-            }
-        }
-        return result;
+        return size == 0;
     }
 
     @Override
     public void clear() {
-        array = new String[10];
+        array = new Integer[0];
         size = 0;
     }
 
     @Override
-    public String[] toArray() {
-        String[] newArray = new String[this.size];
-        for (int i = 0; i < newArray.length; i++) {
-            newArray[i] = this.get(i);
-        }
-        return newArray;
+    public Integer[] toArray() {
+//        Integer[] newArray = new Integer[this.size];
+//        for (int i = 0; i < newArray.length; i++) {
+//            newArray[i] = this.get(i);
+//        }
+        return Arrays.copyOf(array, size);
     }
 
-    public String checkIndex(int index) {
+    public Integer checkIndex(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
         return array[index];
     }
-    public String checkIndexMax(int index) {
+
+
+    public void sortInsertion() {
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i] != null) {
+                int temp = array[i];
+                int j = i;
+                while (j > 0 && array[j - 1] >= temp) {
+                    array[j] = array[j - 1];
+                    j--;
+                }
+                array[j] = temp;
+            }
+        }
+    }
+
+    private boolean findBin(Integer item) {
+        checkItems(item);
+        int min = 0;
+        int max = array.length - 1;
+
+        while (min <= max) {
+            int mid = (min + max) / 2;
+
+            if (array[mid] != null && item.equals(array[mid])) {
+                return true;
+            }
+
+            if (array[mid] == null || item < array[mid]) {
+                max = mid - 1;
+            } else {
+                min = mid + 1;
+            }
+        }
+        return false;
+    }
+
+    private void checkIndexMax(int index) {
         if (index < 0 || index >= array.length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        return array[index];
     }
-    public String checkItems(String item) {
+
+    private void checkItems(Integer item) {
         if (item == null) {
             throw new NullPointerException("Нельзя использовать Null");
         }
-        return item;
     }
 
     @Override
