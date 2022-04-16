@@ -11,6 +11,7 @@ public class StringListImp implements StringList {
     @Override
     public Integer add(Integer item) {
         checkItems(item);
+        checkSize();
         array[size] = item;
         size++;
         return item;
@@ -21,6 +22,7 @@ public class StringListImp implements StringList {
     public Integer add(int index, Integer item) {
         checkItems(item);
         checkIndex(index);
+        checkSize();
 //        System.arraycopy(array, index, size, index+1, size - index);
         add(item);
         array[index] = item;
@@ -61,7 +63,7 @@ public class StringListImp implements StringList {
     @Override
     public boolean contains(Integer item) {
         checkItems(item);
-        sortInsertion();
+        quickSort(array);
         return findBin(item);
     }
 
@@ -133,20 +135,37 @@ public class StringListImp implements StringList {
         return array[index];
     }
 
+    private static void quickSort(Integer[] array){
+        quickSort(array, 0, array.length - 1);
+    }
+    private static void quickSort(Integer[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
 
-    public void sortInsertion() {
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+        }
+    }
 
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] != null) {
-                int temp = array[i];
-                int j = i;
-                while (j > 0 && array[j - 1] >= temp) {
-                    array[j] = array[j - 1];
-                    j--;
-                }
-                array[j] = temp;
+    private static int partition(Integer[] arr, int begin, int end) {
+        Integer pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (pivot == null || arr[j] <= pivot) {
+                i++;
+
+                swapElements(arr, i, j);
             }
         }
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
+    private static void swapElements(Integer[] arr, int left, int right) {
+        Integer temp = arr[left];
+        arr[left] = arr[right];
+        arr[right] = temp;
     }
 
     private boolean findBin(Integer item) {
@@ -168,6 +187,17 @@ public class StringListImp implements StringList {
             }
         }
         return false;
+    }
+
+    private Integer[] grow(){
+        return Arrays.copyOf(array, (int) (size*1.5));
+    }
+
+    private void checkSize(){
+        if (size == array.length){
+            array = grow();
+        }
+
     }
 
     private void checkIndexMax(int index) {
