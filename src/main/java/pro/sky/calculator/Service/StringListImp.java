@@ -5,14 +5,14 @@ import pro.sky.calculator.Exceptions.NotFoundException;
 import java.util.Arrays;
 
 public class StringListImp implements StringList {
-    private Integer[] array = new Integer[5];
+    private Integer[] data = new Integer[5];
     private int size = 0;
 
     @Override
     public Integer add(Integer item) {
         checkItems(item);
         checkSize();
-        array[size] = item;
+        data[size] = item;
         size++;
         return item;
 
@@ -23,9 +23,8 @@ public class StringListImp implements StringList {
         checkItems(item);
         checkIndex(index);
         checkSize();
-//        System.arraycopy(array, index, size, index+1, size - index);
         add(item);
-        array[index] = item;
+        data[index] = item;
         return item;
     }
 
@@ -33,7 +32,7 @@ public class StringListImp implements StringList {
     public Integer set(int index, Integer item) {
         checkItems(item);
         checkIndexMax(index);
-        array[index] = item;
+        data[index] = item;
         return item;
     }
 
@@ -54,7 +53,7 @@ public class StringListImp implements StringList {
     public Integer removeIndex(int index) {
         int element = checkIndex(index);
         for (int i = index; i < size - 1; i++) {
-            array[i] = array[i + 1];
+            data[i] = data[i + 1];
         }
         size--;
         return element;
@@ -63,7 +62,7 @@ public class StringListImp implements StringList {
     @Override
     public boolean contains(Integer item) {
         checkItems(item);
-        quickSort(array);
+        quickSort(data);
         return findBin(item);
     }
 
@@ -71,7 +70,7 @@ public class StringListImp implements StringList {
     public Integer indexOf(Integer item) {
         checkItems(item);
         for (int i = 0; i < size; i++) {
-            if (item.equals(array[i])) {
+            if (item.equals(data[i])) {
                 return i;
             }
         }
@@ -82,7 +81,7 @@ public class StringListImp implements StringList {
     public Integer lastIndexOf(Integer item) {
         checkItems(item);
         for (int i = size - 1; i >= 0; i--) {
-            if (item == array[i]) {
+            if (item == data[i]) {
                 return i;
             }
         }
@@ -92,7 +91,7 @@ public class StringListImp implements StringList {
     @Override
     public Integer get(int index) {
         checkIndex(index);
-        return array[index];
+        return data[index];
     }
 
     @Override
@@ -115,29 +114,26 @@ public class StringListImp implements StringList {
 
     @Override
     public void clear() {
-        array = new Integer[0];
+        data = new Integer[0];
         size = 0;
     }
 
     @Override
     public Integer[] toArray() {
-//        Integer[] newArray = new Integer[this.size];
-//        for (int i = 0; i < newArray.length; i++) {
-//            newArray[i] = this.get(i);
-//        }
-        return Arrays.copyOf(array, size);
+        return Arrays.copyOf(data, size);
     }
 
     public Integer checkIndex(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        return array[index];
+        return data[index];
     }
 
-    private static void quickSort(Integer[] array){
-        quickSort(array, 0, array.length - 1);
+    private static void quickSort(Integer[] data){
+        quickSort(data, 0, data.length - 1);
     }
+
     private static void quickSort(Integer[] arr, int begin, int end) {
         if (begin < end) {
             int partitionIndex = partition(arr, begin, end);
@@ -171,16 +167,16 @@ public class StringListImp implements StringList {
     private boolean findBin(Integer item) {
         checkItems(item);
         int min = 0;
-        int max = array.length - 1;
+        int max = data.length - 1;
 
         while (min <= max) {
             int mid = (min + max) / 2;
 
-            if (array[mid] != null && item.equals(array[mid])) {
+            if (data[mid] != null && item.equals(data[mid])) {
                 return true;
             }
 
-            if (array[mid] == null || item < array[mid]) {
+            if (data[mid] == null || item < data[mid]) {
                 max = mid - 1;
             } else {
                 min = mid + 1;
@@ -190,18 +186,18 @@ public class StringListImp implements StringList {
     }
 
     private Integer[] grow(){
-        return Arrays.copyOf(array, (int) (size*1.5));
+        return Arrays.copyOf(data, (int) (size*1.5));
     }
 
     private void checkSize(){
-        if (size == array.length){
-            array = grow();
+        if (size == data.length){
+            data = grow();
         }
 
     }
 
     private void checkIndexMax(int index) {
-        if (index < 0 || index >= array.length) {
+        if (index < 0 || index >= data.length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
     }
@@ -215,7 +211,7 @@ public class StringListImp implements StringList {
     @Override
     public String toString() {
         return "StringListImp{" +
-                "array=" + Arrays.toString(array) +
+                "data=" + Arrays.toString(data) +
                 ", \n size=" + size +
                 '}';
     }
